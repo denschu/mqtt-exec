@@ -7,7 +7,7 @@ var mqtt = require('mqtt')
   , sleep = require('sleep');
 
 var argv = optimist
-  .usage('mqtt-exec: receive shell commands on mqtt messages\n \
+  .usage('mqtt-exec: receive shell commands on MQTT messages\n \
     Usage: mqtt-exec -p <port> -h <host> -t <topics>')
   .options('h', {
       describe: 'broker host name'
@@ -46,18 +46,16 @@ c.on('connect', function() {
   console.log("Subscribe to topics...: " + topics);
   c.subscribe(topics);
   //For configuration
-  c.subscribe('/home/+/+/config/command/+');
+  c.subscribe('home/+/+/config/command/+');
 
   c.on('message', function(topic, message) {
     topic = topic.replace(/"/g, "\\\"");
     var message = message.replace(/"/g, "\\\"");   
-    console.log("Incoming message: " + message + " for topic: " + topic);
     var splitTopic = topic.split("/");
-    if(splitTopic[4] == "config"){
-      var zone = splitTopic[2];
-      var deviceName = splitTopic[3];
-      var command = splitTopic[6];
-      var configKey = "/home/" + zone + "/" + deviceName + "/state/set:" + command;
+    if(splitTopic[3] == "config"){
+      var deviceName = splitTopic[2];
+      var command = splitTopic[5];
+      var configKey = "home/devices/" + deviceName + "/state/set:" + command;
       console.log("Adding configuration: " + configKey);
       //Message contains the script/executable command
       configuration[configKey] = message;

@@ -1,7 +1,7 @@
 {
   "author": "Dennis Schulte <mail@dennis-schulte.de>",
   "name": "mqtt-exec",
-  "description": "...",
+  "description": "Execute shell commands on MQTT messages",
   "version": "1.0.0",
   "keywords": ["mqtt", "automation"],
   "repository": {
