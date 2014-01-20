@@ -12,10 +12,14 @@ a message arrives. It can also be used in combination with an Home Automation Fr
 
 	mosquitto
 	
-## Publish Configuration
+## Create Configuration "config.json"
 
-	mosquitto_pub -d -r -t home/devices/light1/config/command/on  -m "echo turnOn"
-	mosquitto_pub -d -r -t home/devices/light1/config/command/off  -m "echo turnOff"
+	{
+	  "/home/devices/wohnzimmer/stehlampe_wand/value/set":  { "true"  : "sudo /home/pi/rcswitch-pi/sendRev B 1 1", 
+	                                                          "false" : "sudo /home/pi/rcswitch-pi/sendRev B 1 0" },
+	  "/home/devices/wohnzimmer/lampe_gruen/value/set":     { "true"  : "sudo /home/pi/rcswitch-pi/sendRev B 3 1", 
+	                                                          "false" : "sudo /home/pi/rcswitch-pi/sendRev B 3 0"}                     
+	}
 	
 ##Start Binding with Topics to subscribe
 
@@ -37,4 +41,5 @@ or
 
 * [mqtt.js](http://github.com/adamvr/MQTT.js)
 * [optimist](http://github.com/substack/node-optimist)
+
 

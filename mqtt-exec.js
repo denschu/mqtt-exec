@@ -4,73 +4,58 @@ var mqtt = require('mqtt')
   , optimist = require('optimist')
   , util = require('util')
   , exec = require('child_process').exec
-  , sleep = require('sleep');
+  , sleep = require('sleep')
+  , url = require('url')
+  , fs = require('fs');
 
 var argv = optimist
   .usage('mqtt-exec: receive shell commands on MQTT messages\n \
-    Usage: mqtt-exec -p <port> -h <host> -t <topics>')
+    Usage: mqtt-exec -h <broker-url> -t <topics>')
   .options('h', {
-      describe: 'broker host name'
-    , default: 'localhost'
-    , alias: 'host'
-  })
-  .options('p', {
-      describe: 'broker port'
-    , default: 1883
-    , alias: 'port'
-  })
-  .options('t', {
-      describe: 'topics to monitor, comma separated'
-    , demand: true
-    , alias: 'topics'
+      describe: 'broker url'
+    , default: 'mqtt://localhost:1883'
+    , alias: 'broker-url'
   })
   .argv;
 
-var topics = argv.t.split ? argv.t.split(',') : false
-  , host = argv.h
-  , port = argv.p;
-
-if (!topics) {
-  optimist.showHelp();
-  process.exit(1);
-}
+// Parse url
+var mqtt_url = url.parse(argv.h || process.env.MQTT_BROKER_URL);
+var auth = (mqtt_url.auth || ':').split(':');
 
 //Loading config
-var configuration = {};
+var configuration = JSON.parse(fs.readFileSync(__dirname+'/config.json').toString());
+var topics = [];
+for(var key in configuration){
+    var topic = key;
+    topics.push(topic);
+}
 
 //Creating the MQTT Client
-console.log("Creating client...");
-var c = mqtt.createClient(port, host);
+console.log("Creating client for: " + mqtt_url.hostname);
+// Create a client connection
+var c = mqtt.createClient(mqtt_url.port, mqtt_url.hostname, {
+  username: auth[0],
+  password: auth[1]
+});
 
 c.on('connect', function() {
   console.log("Subscribe to topics...: " + topics);
   c.subscribe(topics);
-  //For configuration
-  c.subscribe('home/+/+/config/command/+');
-
   c.on('message', function(topic, message) {
     topic = topic.replace(/"/g, "\\\"");
     var message = message.replace(/"/g, "\\\"");   
-    var splitTopic = topic.split("/");
-    if(splitTopic[3] == "config"){
-      var deviceName = splitTopic[2];
-      var command = splitTopic[5];
-      var configKey = "home/devices/" + deviceName + "/state/set:" + command;
-      console.log("Adding configuration: " + configKey);
-      //Message contains the script/executable command
-      configuration[configKey] = message;
-    }else{
-      executeShellCommand(topic,message);
-    }
+    executeShellCommand(topic,message);
+    var topic_outgoing = topic.replace(/\/set/g,'');
+    console.log("Reportig value back to topic: " + topic_outgoing);
+    c.publish(topic_outgoing,message,{retain: true});
   });
 });
 
-function executeShellCommand(topic,message){
-    var key = topic+":"+message;
-    console.log("DEBUG: " + key);
-    var command = configuration[key];
-    console.log("Executing command: " + command + " for topic: " + topic);
-    exec(command, puts);
+function executeShellCommand(topic,payload){
+    var commands = configuration[topic];
+    var command = commands[payload];
+    console.log("Executing command: " + command + " for topic: " + topic + " and payload: " + payload);
+    //exec(command, puts);
     sleep.sleep(1);//sleep for 1 seconds
 }
 

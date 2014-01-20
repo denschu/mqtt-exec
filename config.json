@@ -1,0 +1,10 @@
+{
+  "/home/devices/wohnzimmer/stehlampe_wand/value/set":  { "true"  : "sudo /home/pi/rcswitch-pi/sendRev B 1 1", 
+                                                          "false" : "sudo /home/pi/rcswitch-pi/sendRev B 1 0" },
+  "/home/devices/wohnzimmer/lampe_gruen/value/set":     { "true"  : "sudo /home/pi/rcswitch-pi/sendRev B 3 1", 
+                                                          "false" : "sudo /home/pi/rcswitch-pi/sendRev B 3 0" },
+  "/home/devices/wohnzimmer/schrank_rechts/value/set":  { "true"  : "sudo /home/pi/rcswitch-pi/send 01110 2 1", 
+                                                          "false" : "sudo /home/pi/rcswitch-pi/send 01110 2 0" },   
+  "/home/devices/wohnzimmer/schrank_links/value/set":   { "true"  : "sudo /home/pi/rcswitch-pi/send 01110 3 1", 
+                                                          "false" : "sudo /home/pi/rcswitch-pi/send 01110 3 0" }                     
+}
