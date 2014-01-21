@@ -16,7 +16,7 @@ Start the MQTT broker with
 	
 ## Configuration
 
-Create/Modify Configuration "config.json"
+Create/Modify configuration "config.json"
 
 	{
 	  "/home/devices/livingroom/ligh1/value/set":  { "true"  : "sudo /home/pi/rcswitch-pi/sendRev B 1 1", 
@@ -27,7 +27,7 @@ Create/Modify Configuration "config.json"
 	
 ## Start application
 
-Start application with the topics to subscribe and the URL of the MQTT Broker
+Start application with the path to the config file and the URL of the MQTT broker
 
 	mqtt-exec -c /path/to/config.json -h mqtt://localhost:1883
 
