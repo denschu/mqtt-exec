@@ -8,7 +8,7 @@ a message arrives. It can also be used in combination with a Home Automation Fra
 
 	npm install mqtt-exec
 
-## Start 
+## Start broker
 
 Start the MQTT broker with
 
@@ -25,7 +25,7 @@ Create/Modify Configuration "config.json"
 	                                                 "false" : "sudo /home/pi/rcswitch-pi/sendRev B 3 0"}                     
 	}
 	
-## Start
+## Start application
 
 Start application with the topics to subscribe and the URL of the MQTT Broker
 
