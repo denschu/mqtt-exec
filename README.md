@@ -8,11 +8,15 @@ a message arrives. It can also be used in combination with a Home Automation Fra
 
 	npm install mqtt-exec
 
-## Start Broker
+## Start 
+
+Start the MQTT broker with
 
 	mosquitto
 	
-## Create/Modify Configuration "config.json"
+## Configuration
+
+Create/Modify Configuration "config.json"
 
 	{
 	  "/home/devices/livingroom/ligh1/value/set":  { "true"  : "sudo /home/pi/rcswitch-pi/sendRev B 1 1", 
@@ -21,17 +25,14 @@ a message arrives. It can also be used in combination with a Home Automation Fra
 	                                                 "false" : "sudo /home/pi/rcswitch-pi/sendRev B 3 0"}                     
 	}
 	
-##Start application with topics to subscribe and the URL of the MQTT Broker
+## Start
+
+Start application with the topics to subscribe and the URL of the MQTT Broker (default: mqtt://localhost:1883)
 
 	mqtt-exec -c /path/to/config.json -h mqtt://localhost:1883
 
 ## Simulate the execution of a command
 
 	mosquitto_pub -d -t home/devices/light1/value/set -m "true"
-
-## dependencies
-
-* [mqtt.js](http://github.com/adamvr/MQTT.js)
-* [optimist](http://github.com/substack/node-optimist)
 
 
