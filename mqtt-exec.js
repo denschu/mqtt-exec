@@ -26,7 +26,7 @@ var argv = optimist
   .argv;
 
 // Parse url
-var mqtt_url = url.parse(argv.h || process.env.MQTT_BROKER_URL);
+var mqtt_url = url.parse(process.env.MQTT_BROKER_URL || argv.h);
 var auth = (mqtt_url.auth || ':').split(':');
 
 //var configuration = JSON.parse(fs.readFileSync(__dirname+'/config.json').toString());

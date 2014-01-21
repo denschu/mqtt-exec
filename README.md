@@ -27,9 +27,13 @@ Create/Modify Configuration "config.json"
 	
 ## Start
 
-Start application with the topics to subscribe and the URL of the MQTT Broker (default: mqtt://localhost:1883)
+Start application with the topics to subscribe and the URL of the MQTT Broker
 
 	mqtt-exec -c /path/to/config.json -h mqtt://localhost:1883
+
+You can also set the MQTT broker url as environment variable
+
+	export MQTT_BROKER_URL=mqtt://localhost:1883
 
 ## Simulate the execution of a command
 
