@@ -6,7 +6,7 @@ a message arrives. It can also be used in combination with a Home Automation Fra
 
 ## Setup
 
-	npm install mqtt-exec
+	npm install mqtt-exec -g
 
 ## Start broker
 
