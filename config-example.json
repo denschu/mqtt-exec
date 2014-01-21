@@ -1,0 +1,6 @@
+{
+  "/home/devices/livingroom/light1/value/set":  { "true"  : "sudo /home/pi/rcswitch-pi/sendRev B 1 1", 
+                                                  "false" : "sudo /home/pi/rcswitch-pi/sendRev B 1 0" },    
+  "/home/devices/livingroom/light2/value/set":  { "true"  : "sudo /home/pi/rcswitch-pi/sendRev B 2 1", 
+                                                  "false" : "sudo /home/pi/rcswitch-pi/sendRev B 2 0" }                      
+}
