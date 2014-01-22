@@ -31,6 +31,10 @@ Start application with the path to the config file and the URL of the MQTT broke
 
 	mqtt-exec -c /path/to/config.json -h mqtt://localhost:1883
 
+or run it in the backround with logging to a file
+
+	nohup mqtt-exec -c /path/to/config.json > mqtt-exec.log  &
+
 You can also set the MQTT broker url as environment variable
 
 	export MQTT_BROKER_URL=mqtt://localhost:1883
