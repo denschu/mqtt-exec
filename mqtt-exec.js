@@ -68,7 +68,7 @@ function executeShellCommand(topic,payload){
     var commands = configuration[topic];
     var command = commands[payload];
     logger.info("Executing command: " + command + " for topic: " + topic + " and payload: " + payload);
-    //exec(command, puts);
+    exec(command, puts);
     sleep.sleep(1);//sleep for 1 seconds
 }
 
