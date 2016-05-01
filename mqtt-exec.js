@@ -59,7 +59,7 @@ c.on('connect', function() {
     var message = message.replace(/"/g, "\\\"");   
     executeShellCommand(topic,message);
     var topic_outgoing = topic.replace(/\/set/g,'');
-    console.log("Reportig value back to topic: " + topic_outgoing);
+    console.log("Reporting value back to topic: " + topic_outgoing);
     c.publish(topic_outgoing,message,{retain: true});
   });
 });
