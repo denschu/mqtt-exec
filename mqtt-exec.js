@@ -56,7 +56,7 @@ c.on('connect', function() {
   c.subscribe(topics);
   c.on('message', function(topic, message) {
     topic = topic.replace(/"/g, "\\\"");
-    var message = message.replace(/"/g, "\\\"");   
+    var message = message.toString().replace(/"/g, "\\\"");   
     executeShellCommand(topic,message);
     var topic_outgoing = topic.replace(/\/set/g,'');
     console.log("Reportig value back to topic: " + topic_outgoing);
