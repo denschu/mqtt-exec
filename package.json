@@ -3,7 +3,10 @@
   "name": "mqtt-exec",
   "description": "Execute shell commands on MQTT messages",
   "version": "1.0.0",
-  "keywords": ["mqtt", "automation"],
+  "keywords": [
+    "mqtt",
+    "automation"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/denschu/mqtt-exec.git"
@@ -12,13 +15,15 @@
   "bin": {
     "mqtt-exec": "mqtt-exec.js"
   },
-  "scripts": { "start" : "./mqtt-exec.js" },
+  "scripts": {
+    "start": "./mqtt-exec.js"
+  },
   "engines": {
     "node": ">=0.8.0"
   },
   "dependencies": {
-    "mqtt":">=0.2.0",
-    "optimist":">=0.3.1",
+    "mqtt": ">=0.2.0",
+    "optimist": ">=0.3.1",
     "exec": "0.0.5",
     "sleep": "1.1.0",
     "log4js": "*"

@@ -46,19 +46,25 @@ for(var key in configuration){
 
 //Creating the MQTT Client
 logger.info("Creating client for: " + mqtt_url.hostname);
-var c = mqtt.createClient(mqtt_url.port, mqtt_url.hostname, {
+var options = {
+  port: mqtt_url.port,
+  host: mqtt_url.hostname,
   username: auth[0],
   password: auth[1]
-});
+}
+var c = mqtt.connect(options);
+
 
 c.on('connect', function() {
   logger.info("Subscribe to topics...: " + topics);
   c.subscribe(topics);
   c.on('message', function(topic, message) {
-    topic = topic.replace(/"/g, "\\\"");
-    var message = message.replace(/"/g, "\\\"");   
+    topic = topic.toString().replace(/"/g, "\\\"");
+    var message = message.toString().replace(/"/g, "\\\"");   
+    console.log(topic);
+    console.log(message);
     executeShellCommand(topic,message);
-    var topic_outgoing = topic.replace(/\/set/g,'');
+    var topic_outgoing = topic.replace(/\/set/g,'/get');
     console.log("Reportig value back to topic: " + topic_outgoing);
     c.publish(topic_outgoing,message,{retain: true});
   });
